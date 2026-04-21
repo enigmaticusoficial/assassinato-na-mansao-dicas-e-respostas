@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+ <meta charset="UTF-8">          <!--metadado que define o padrão de codificação de caracteres-->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0", user-scalable=yes> <!--ajusta a largura do site-->
+ <title>A Herança no Prédio</title>
+ <style>
+
+ html, body {
+  margin: 0;
+  padding: 0;
+height: var(--altura-real); /* fundamental para permitir zoom, e limitar imagem a tamanho da tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+          align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.imagem-app {
+  display: block;
+  max-height: var(--altura-real);
+  max-width: 100%;
+  height: auto;
+}
+   
+#btn-audio {
+  position: fixed;
+top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+
+  width: 40px;
+  height: 40px;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  z-index: 999;
+}
+
+.seta-direita {
+  position: absolute;
+  right: 50%;
+    transform: translate(50%,0);
+  bottom: 6%;
+
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+
+  width: 40px;
+  height: 40px;
+
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 50;
+}
+
+</style>
+
+</head>
+
+<body>
+
+  <audio id="musica-tema" src="The blood theme.mp3" loop></audio>
+<button id="btn-audio">🔊</button>
+
+  <div class="container">
+        <img src="f1.png" id="foto-fase" class="imagem-app">
+
+<button id="btn-proximo" class="seta-direita">➡️</button>
+    
+    </div>
+ </body>
+
+
+<script>
+
+
+// Este comando captura a altura e cria a variável no CSS
+const ajustarAltura = () => {
+ document.documentElement.style.setProperty('--altura-real', `${window.innerHeight}px`);
+}
+
+// Executa ao carregar a página
+ajustarAltura();
+
+
+//INICIAR MUSICA
+const musica = document.getElementById('musica-tema');
+const botao = document.getElementById('btn-audio');
+
+let musicaIniciada = false;
+
+// Inicia a música no primeiro toque/clique
+function iniciarMusica() {
+    if (!musicaIniciada) {
+        musica.play();
+        musicaIniciada = true;
+    }
+}
+
+// Captura qualquer interação do usuário
+document.addEventListener('pointerdown', iniciarMusica);
+
+// Botão liga/desliga
+botao.addEventListener('click', function () {
+    if (musica.paused) {
+        musica.play();
+        botao.textContent = "🔊";
+    } else {
+        musica.pause();
+        botao.textContent = "🔇";
+    }
+});
+
+const imagens = ["f1.png", "f2.png", "f3.png"];
+let indice = 0;
+
+const img = document.getElementById("foto-fase");
+const btnProximo = document.getElementById("btn-proximo");
+
+btnProximo.addEventListener("click", function () {
+    indice++;
+
+    if (indice >= imagens.length) {
+        indice = 0;
+    }
+
+    img.src = imagens[indice];
+});
+
+</script>
+</body>
+</html>
+
+
+
