@@ -211,13 +211,13 @@ document.getElementById('btn-verificar').addEventListener('click', function() {
 
 
     // 3. Verifica se o que ele digitou bate com uma das opções
-    if (respostaUsuario === respostaCorreta1 || respostaUsuario === respostaCorreta2) {
+    if (respostaUsuario === respostaCorreta1) {
         alert("🎯 Exato! Você decifrou a mensagem oculta.");
         
         // Redireciona para a próxima fase (exemplo)
         window.location.href = "carta5.html"; 
     } else {
-        alert("❌ Resposta incorreta. Pedro parece estar tentando dizer algo nas entrelinhas...");
+        alert("❌ Resposta incorreta. Tente novamente...");
         
         // Limpa o campo para o usuário tentar de novo
         document.getElementById('input-resposta').value = "";
