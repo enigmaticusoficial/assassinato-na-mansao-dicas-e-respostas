@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+ <meta charset="UTF-8">          <!--metadado que define o padrão de codificação de caracteres-->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0", user-scalable=yes> <!--ajusta a largura do site-->
+ <title>A Herança no Prédio</title>
+ <style>
+
+ html, body {
+  margin: 0;
+  padding: 0;
+height: var(--altura-real); /* fundamental para permitir zoom, e limitar imagem a tamanho da tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+          align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.imagem-app {
+  display: block;
+  max-height: var(--altura-real);
+  max-width: 100%;
+  height: auto;
+}
+   
+.painel-investigacao {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 420px;
+  padding: 10px;
+  background: rgba(20, 20, 20, 0.92);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(6px);
+}
+
+.campo-texto {
+    gap: 15px;
+      background: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;           /* Aumentei para 80% para ficar visualmente melhor */
+    outline: none;
+    font-family: inherit;
+    text-align: center;   /* O texto que o usuário digita fica no centro <--- ADICIONAR */
+}
+
+.campo-texto:focus {
+    border-color: #ffffff;      /* Muda a cor da borda quando clica para digitar */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.pergunta {
+  color: white;        /* cor da fonte */
+  text-align: center;  /* centraliza */
+  display: block;      /* ESSENCIAL para centralizar funcionar */
+}
+
+#btn-verificar {
+  margin-top: 30px;
+  width: 100%;
+  margin-top: 0px;
+  padding: 10px;
+  background: #ffffff;
+  color: #121212;   /* 👈 ESSENCIAL */
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#btn-verificar:hover {
+  background: #dddddd;
+}
+
+.container-dica {
+    position: absolute;
+    bottom: 7%;
+    z-index: 30;
+    /* CENTRALIZAÇÃO DO CONTAINER NA TELA */
+    left: 50%;
+    transform: translateX(-50%);
+    /* LARGURA */
+    width: 100%;
+    max-width: 400px;
+    /* ALINHAMENTO INTERNO */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o botão e o texto horizontalmente */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Cria um espaço de 10px entre cada botão/texto */
+}
+
+.botao-dica {
+    width: auto; /* Deixe 'auto' para o padding dar o formato, ou mantenha os % */
+    min-width: 100px;
+    pointer-events: auto;
+    background-color: #d91717;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.texto-escondido {
+    display: none; /* O JS mudará para 'block' ou 'inline-block' */
+    color: #ffffff;
+    font-size: 100%;
+    font-weight: bold;
+    width: 80%; /* Ocupa toda a largura do container-dica */
+    padding: 2px;
+    box-sizing: border-box;
+    pointer-events: auto;
+    /* Garante que o texto não tenha margens laterais estranhas */
+    margin: 0 auto; 
+}
+
+#btn-audio {
+  position: fixed;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+</style>
+</head>
+
+<body>
+<audio id="musica-tema" src="detective-crime-deductive.mp3" loop></audio>
+<button id="btn-audio">🔊</button>
+
+
+ <div class="container">
+    <img src="4.png" id="foto-fase" class="imagem-app">
+
+<div class="painel-investigacao">
+                <span class="pergunta">Qual a mensagem oculta?</span>
+                <input type="text" id="input-resposta" class="campo-texto" placeholder="Sua resposta...">
+
+            <button id="btn-verificar">Verificar Resposta</button>
+        </div>
+        
+        <div class="container-dica">
+    <button id="btn-dica-1" class="botao-dica" onclick="revelarDica('btn-dica-1', 'texto-dica-1')">Dica 1</button>
+    <p id="texto-dica-1" class="texto-escondido">Existem números nos depoimentos de Diogo e Tolland.</p>
+
+    <button id="btn-dica-2" class="botao-dica" onclick="revelarDica('btn-dica-2', 'texto-dica-2')">Dica 2</button>
+    <p id="texto-dica-2" class="texto-escondido">Ao todo são 6 palavras enumeradas.</p>
+
+    <button id="btn-dica-3" class="botao-dica" onclick="revelarDica('btn-dica-3', 'texto-dica-3')">Dica 3</button>
+    <p id="texto-dica-3" class="texto-escondido">Colocando tais palavras em ordem, forma-se a frase oculta.</p>
+</div>
+
+    </div> </body>
+
+
+<script>
+
+
+
+
+// Este comando captura a altura e cria a variável no CSS
+const ajustarAltura = () => {
+ document.documentElement.style.setProperty('--altura-real', `${window.innerHeight}px`);
+}
+
+// Executa ao carregar a página
+ajustarAltura();
+
+
+document.getElementById('btn-verificar').addEventListener('click', function() {
+    // 1. Pega o valor do input, remove espaços extras e coloca tudo em minúsculo
+    const respostaUsuario = document.getElementById('input-resposta').value.toLowerCase().trim();
+
+    // 2. Define as variações aceitas
+    const respostaCorreta1 = "anelise e tod tiveram um caso";
+
+
+    // 3. Verifica se o que ele digitou bate com uma das opções
+    if (respostaUsuario === respostaCorreta1 || respostaUsuario === respostaCorreta2) {
+        alert("🎯 Exato! Você decifrou a mensagem oculta.");
+        
+        // Redireciona para a próxima fase (exemplo)
+        window.location.href = "carta5.html"; 
+    } else {
+        alert("❌ Resposta incorreta. Pedro parece estar tentando dizer algo nas entrelinhas...");
+        
+        // Limpa o campo para o usuário tentar de novo
+        document.getElementById('input-resposta').value = "";
+    }
+});
+
+
+
+//INICIAR MUSICA
+const musica = document.getElementById('musica-tema');
+const botao = document.getElementById('btn-audio');
+
+let musicaIniciada = false;
+
+// Inicia a música no primeiro toque/clique
+function iniciarMusica() {
+    if (!musicaIniciada) {
+        musica.play();
+        musicaIniciada = true;
+    }
+}
+
+// Captura qualquer interação do usuário
+document.addEventListener('pointerdown', iniciarMusica);
+
+// Botão liga/desliga
+botao.addEventListener('click', function () {
+    if (musica.paused) {
+        musica.play();
+        botao.textContent = "🔊";
+    } else {
+        musica.pause();
+        botao.textContent = "🔇";
+    }
+});
+
+
+
+
+function revelarDica(idBotao, idTexto) {
+    const botao = document.getElementById(idBotao);
+    const texto = document.getElementById(idTexto);
+
+    if (botao && texto) {
+        botao.style.display = 'none';   // Esconde o botão clicado
+        texto.style.display = 'block';  // Mostra o texto correspondente
+    }
+}
+
+</script>
+</body>
+</html>
+
+
+

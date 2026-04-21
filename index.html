@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+ <meta charset="UTF-8">          <!--metadado que define o padrão de codificação de caracteres-->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0", user-scalable=yes> <!--ajusta a largura do site-->
+ <title>A Herança no Prédio</title>
+ <style>
+
+ html, body {
+  margin: 0;
+  padding: 0;
+height: var(--altura-real); /* fundamental para permitir zoom, e limitar imagem a tamanho da tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+          align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.imagem-app {
+  display: block;
+  max-height: var(--altura-real);
+  max-width: 100%;
+  height: auto;
+}
+   
+
+</style>
+
+</head>
+
+<body>
+  <div class="container">
+        <img src="0.png" id="foto-fase" class="imagem-app">
+
+    
+    </div>
+ </body>
+
+
+<script>
+
+
+// Este comando captura a altura e cria a variável no CSS
+const ajustarAltura = () => {
+ document.documentElement.style.setProperty('--altura-real', `${window.innerHeight}px`);
+}
+
+// Executa ao carregar a página
+ajustarAltura();
+
+
+document.addEventListener('click', function() {
+    window.location.href = "carta1.html";
+});
+
+</script>
+</body>
+</html>
+
+
+
